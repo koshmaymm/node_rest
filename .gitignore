@@ -4,5 +4,8 @@
 /node_modules
 npm-debug.log*
 
-data.json
+.data.json
 logger.txt
+
+*.txt
+*.md
