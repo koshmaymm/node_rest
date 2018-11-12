@@ -13,10 +13,16 @@ app.use(function(request, response, next){
    });
   
 
-    fs.appendFile(path, data, function(err){
+    /*fs.appendFile(path, data, function(err){
         console.log('data wrote');
         next();
-    });
+    });*/
+
+    fs.writeFile(path, data, function (err) {
+        if (err) throw err;
+        console.log('Replaced!');
+        next();
+      });
 });
 
 app.get('/', function(request, response){
