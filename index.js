@@ -7,17 +7,10 @@ var app = express();
 var path = 'data.json';
 
 app.use(function(request, response, next){
-   // var data = `Address : ${request.ip}; Time: ${new Date().toLocaleString()}; URL : ${request.url}\n`;
    var data = JSON.stringify({
     "Time" :`${new Date().toLocaleString()}`
    });
-  
-
-    /*fs.appendFile(path, data, function(err){
-        console.log('data wrote');
-        next();
-    });*/
-
+   
     fs.writeFile(path, data, function (err) {
         if (err) throw err;
         console.log('Replaced!');
