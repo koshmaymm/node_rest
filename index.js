@@ -10,7 +10,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/drinksCollectionDB";
 
 
-var users = [
+var drinks = [
     {name: "Absinthe", price: 73}, 
     {name: "Beer", price: 5}, 
     {name: "Brandy", price: 45},
@@ -20,8 +20,8 @@ var users = [
  
 MongoClient.connect(url, function(err, db){
      
-    var collection = db.collection("users");
-    collection.insertMany(users, function(err, results){
+    var collection = db.collection("drinks");
+    collection.insertMany(drinks, function(err, results){
              
         collection.findOneAndUpdate(
             {price: 25}, 
