@@ -1,0 +1,22 @@
+[
+    {
+        "name" : "Absinthe",
+        "price" : 73
+    },
+    {
+        "name" : "Beer",
+        "price" : 5
+    },
+    {
+        "name" : "Brandy",
+        "price" : 45
+    },
+    {
+        "name" : "Whisky",
+        "price" : 34
+    },
+    {
+        "name" : "Wine",
+        "price" : 59
+    }    
+]
