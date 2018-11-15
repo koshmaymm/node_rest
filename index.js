@@ -28,6 +28,7 @@ app.post('/',function(request, response){
             });
         }); 
     }
+    response.send('<h2>New drink was added !!!</h2>');
   });
 
 app.listen(8080, function(){
