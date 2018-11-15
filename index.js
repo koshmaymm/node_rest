@@ -1,35 +1,23 @@
 
 const express = require('express');
-const fs = require('fs');
-
 const app = express();
-
-const drinks = require('./data');
-
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/drinksCollectionDB";
 
 const drinkOne = {name: "WineOld", price: 68};
 
-MongoClient.connect(url, function(err, db){
-    const collection = db.collection("drinks");
+/* const drinks = require('./data'); /// used only once, to create drinks collection
 
+ MongoClient.connect(url, function(err, db){
+    var collection = db.collection('drinks_in_bar');
+    
     collection.insertMany(drinks, function(err, results){
-        if(err) throw err;       
+        if(err) throw err;
+        console.log(results);        
         db.close();
     });    
-});
+}); */
 
-app.use(function(request, response, next){
-    const newBar = drinks;
-        newBar.push(drinkOne);
-
-    fs.writeFile("./data.json", JSON.stringify(newBar), function (err) {
-        if (err) throw err;
-        console.log('Replaced!');
-        next();
-    });
-});
 
 app.get('/', function(request, response){
     response.send('<h1>Hello, Bar!</h1>');
@@ -39,6 +27,16 @@ app.listen(8080, function(){
     // console.log('Server start')
 });
 
+// const fs = require('fs');
+// const drinks = require('./data');
+/* app.use(function(request, response, next){
+    const newBar = drinks;
+        newBar.push(drinkOne);
+}); */
 
-
-
+/*
+collection.insertMany(drinks, function(err, results){
+        if(err) throw err;       
+        db.close();
+    });
+*/
