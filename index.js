@@ -15,17 +15,15 @@ app.post('/',function(request, response){
 
     if(request && response) {
         MongoClient.connect(url, function(err, db){
-            var drinks_collection = db.collection('drinks_in_bar');
-        
-            drinks_collection.insertOne(drinkOne, function(err, result){
+            const drinks_collection = db.collection('drinks_in_bar');
+                drinks_collection.insertOne(drinkOne, function(err, result){
+                    if(err){
+                        console.log(err);
+                        return;
+                    }
 
-                if(err){ 
-                    console.log(err);
-                    return;
-                }
-                console.log(result.ops);
-                db.close();
-            });
+                    db.close();
+                });
         }); 
     }
     response.send('<h2>New drink was added !!!</h2>');
