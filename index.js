@@ -4,39 +4,32 @@ const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/drinksCollectionDB";
 
-const drinkOne = {name: "WineOld", price: 68};
-
-/* const drinks = require('./data'); /// used only once, to create drinks collection
-
- MongoClient.connect(url, function(err, db){
-    var collection = db.collection('drinks_in_bar');
-    
-    collection.insertMany(drinks, function(err, results){
-        if(err) throw err;
-        console.log(results);        
-        db.close();
-    });    
-}); */
-
+const newPrice = ~~(Math.random()*100);
+const drinkOne = {name: "WineOld", price: newPrice};
 
 app.get('/', function(request, response){
     response.send('<h1>Hello, Bar!</h1>');
 });
 
+app.post('/',function(request, response){
+
+    if(request && response) {
+        MongoClient.connect(url, function(err, db){
+            var drinks_collection = db.collection('drinks_in_bar');
+        
+            drinks_collection.insertOne(drinkOne, function(err, result){
+
+                if(err){ 
+                    console.log(err);
+                    return;
+                }
+                console.log(result.ops);
+                db.close();
+            });
+        }); 
+    }
+  });
+
 app.listen(8080, function(){
-    // console.log('Server start')
+    // console.log(drinkOne)
 });
-
-// const fs = require('fs');
-// const drinks = require('./data');
-/* app.use(function(request, response, next){
-    const newBar = drinks;
-        newBar.push(drinkOne);
-}); */
-
-/*
-collection.insertMany(drinks, function(err, results){
-        if(err) throw err;       
-        db.close();
-    });
-*/
