@@ -7,18 +7,14 @@ const url = "mongodb://localhost:27017/drinksCollectionDB";
 const newPrice = ~~(Math.random()*100);
 const drinkOne = {name: "WineOld", price: newPrice};
 
- const sendPostRequest = async (request, response) => {
+const addNewDrink = async (err, db) => {
+    await db.collection('drinks_in_bar').insertOne(drinkOne);
+        db.close();
+}
+
+const sendPostRequest = async (request, response, db) => {
     try {
-        MongoClient.connect(url, function(err, db){
-            const drinks_collection = db.collection('drinks_in_bar');
-                drinks_collection.insertOne(drinkOne, function(err, result){
-                    if(err){
-                        console.log(err);
-                        return;
-                    }
-                    db.close();
-                });
-        }); 
+        MongoClient.connect(url, addNewDrink);
         response.json(drinkOne);
     } catch (err) {
       console.log(err);
