@@ -15,13 +15,11 @@ const getValue = async (err, db) => {
         // some_id: { $lt: 3}
         // categories: ['Java'],
         // categories: ['Open Source', 'Mobile']
-        // pageCount: { $gt: 400 } // more then 400
-        //{ pageCount: { $gt: 600 } }
 
         const resCategories = { 
             categories: 1, 
             pageCount: 1,
-            // publishedDate: 1,
+            publishedDate: 1,
             status: 1
         }
 
