@@ -10,12 +10,12 @@ Book = require('./models/book');
 mongoose.connect('mongodb://localhost:27017/bookstore');
 const db = mongoose.connection;
 
-app.get('/', (req, res) => {
-	res.send('Please use api books');
+app.get('/', async (req, res) => {
+	await res.send('Please use api books');
 });
 
-app.get('/api/books', (req, res) => {
-	Book.getBooks((err, books) => {
+app.get('/api/books', async (req, res) => {
+	await Book.getBooks((err, books) => {
 		if(err){
 			throw err;
 		}
@@ -23,8 +23,8 @@ app.get('/api/books', (req, res) => {
 	});
 });
 
-app.get('/api/books/:_id', (req, res) => {
-	Book.getBookById(req.params._id, (err, book) => {
+app.get('/api/books/:_id', async (req, res) => {
+	await Book.getBookById(req.params._id, (err, book) => {
 		if(err){
 			throw err;
 		}
@@ -32,9 +32,9 @@ app.get('/api/books/:_id', (req, res) => {
 	});
 });
 
-app.post('/api/books', (req, res) => {
+app.post('/api/books', async (req, res) => {
 	const book = req.body;
-	Book.addBook(book, (err, book) => {
+	await Book.addBook(book, (err, book) => {
 		if(err){
 			throw err;
 		}
@@ -42,11 +42,11 @@ app.post('/api/books', (req, res) => {
 	});
 });
 
-app.put('/api/books/:_id', (req, res) => {
+app.put('/api/books/:_id', async (req, res) => {
 	const id = req.params._id;
     const book = req.body;
 
-	Book.updateBook(id, book, {}, (err, book) => {
+	await Book.updateBook(id, book, {}, (err, book) => {
 		if(err){
 			throw err;
 		}
@@ -54,9 +54,9 @@ app.put('/api/books/:_id', (req, res) => {
 	});
 });
 
-app.delete('/api/books/:_id', (req, res) => {
+app.delete('/api/books/:_id', async (req, res) => {
 	const id = req.params._id;
-	Book.removeBook(id, (err, book) => {
+	await Book.removeBook(id, (err, book) => {
 		if(err){
 			throw err;
 		}
