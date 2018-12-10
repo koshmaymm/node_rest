@@ -10,59 +10,93 @@ Book = require('./models/book');
 mongoose.connect('mongodb://localhost:27017/bookstore');
 const db = mongoose.connection;
 
-app.get('/', async (req, res) => {
-	await res.send('Please use api books');
-});
-
-app.get('/api/books', async (req, res) => {
-	await Book.getBooks((err, books) => {
-		if(err){
-			throw err;
-		}
-		res.json(books);
+function startRequest(req, res) {
+	return new Promise((resolve, reject) => {
+		resolve(
+			res.send('Please use api books')
+		);	
 	});
-});
+}
 
-app.get('/api/books/:_id', async (req, res) => {
-	await Book.getBookById(req.params._id, (err, book) => {
-		if(err){
-			throw err;
-		}
-		res.json(book);
+function getAllBook(req, res) {
+	return new Promise((resolve, reject) => {
+		resolve(
+			Book.getBooks((err, books) => {
+				if(err){
+					throw err;
+				}
+				res.json(books);
+			})
+		);	
 	});
-});
+}
 
-app.post('/api/books', async (req, res) => {
-	const book = req.body;
-	await Book.addBook(book, (err, book) => {
-		if(err){
-			throw err;
-		}
-		res.json(book);
+function getOneBook(req, res) {
+	return new Promise((resolve, reject) => {
+		resolve(
+			Book.getBookById(req.params._id, (err, book) => {
+				if(err){
+					throw err;
+				}
+				res.json(book);
+			})
+		);
 	});
-});
+}
 
-app.put('/api/books/:_id', async (req, res) => {
-	const id = req.params._id;
-    const book = req.body;
+function addNewBook(req, res) {
+	return new Promise((resolve, reject) => {
+		const book = req.body;
 
-	await Book.updateBook(id, book, {}, (err, book) => {
-		if(err){
-			throw err;
-		}
-		res.json(book);
+		resolve(
+			Book.addBook(book, (err, book) => {
+			if(err){
+				throw err;
+			}
+			res.json(book);
+			})
+		);
 	});
-});
+}
 
-app.delete('/api/books/:_id', async (req, res) => {
-	const id = req.params._id;
-	await Book.removeBook(id, (err, book) => {
-		if(err){
-			throw err;
-		}
-		res.json(book);
+function editBookProps(req, res) {
+	return new Promise((resolve, reject) => {
+		const id = req.params._id;
+    	const book = req.body;
+
+		resolve(
+			Book.updateBook(id, book, {}, (err, book) => {
+				if(err){
+					throw err;
+				}
+				res.json(book);
+			})
+		);
 	});
-});
+}
+
+function removeBookById(req, res) {
+	return new Promise((resolve, reject) => {
+		const id = req.params._id;
+
+		resolve(
+			Book.removeBook(id, (err, book) => {
+				if(err){
+					throw err;
+				}
+				res.json(book);
+			})
+		);
+	});
+}
+
+
+app.get('/', startRequest );
+app.get('/api/books', getAllBook );
+app.get('/api/books/:_id', getOneBook );
+app.post('/api/books', addNewBook );
+app.put('/api/books/:_id', editBookProps );
+app.delete('/api/books/:_id', removeBookById );
 
 app.listen(3000);
 console.log('Running on port 3000...');
