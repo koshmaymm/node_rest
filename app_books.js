@@ -3,11 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+process.env.VAR_BOOKSTORE = 'mongodb://localhost:27017/bookstore';
+process.env.VAR_PORT = 3000;
+
 app.use(bodyParser.json());
 
 Book = require('./models/book');
 
-mongoose.connect('mongodb://localhost:27017/bookstore');
+mongoose.connect(process.env.VAR_BOOKSTORE);
 const db = mongoose.connection;
 
 function startRequest(req, res) {
@@ -98,5 +101,4 @@ app.post('/api/books', addNewBook );
 app.put('/api/books/:_id', editBookProps );
 app.delete('/api/books/:_id', removeBookById );
 
-app.listen(3000);
-console.log('Running on port 3000...');
+app.listen(process.env.VAR_PORT);
