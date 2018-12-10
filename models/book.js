@@ -53,8 +53,8 @@ module.exports.updateBook = (id, book, options, callback) => {
         publishedDate: book.publishedDate,
         thumbnailUrl: book.thumbnailUrl,
         status: book.status,
-        authors: [book.authors],
-        categories: [book.categories],
+        authors: book.authors,
+        categories: book.categories,
 	}
 	Book.findOneAndUpdate(query, update, options, callback);
 }
