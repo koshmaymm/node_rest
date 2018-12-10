@@ -18,7 +18,7 @@ function startRequest(req, res) {
 	});
 }
 
-function getAllBook(req, res) {
+getAllBook = (req, res) => {
 	return new Promise((resolve, reject) => {
 		resolve(
 			Book.getBooks((err, books) => {
@@ -31,7 +31,7 @@ function getAllBook(req, res) {
 	});
 }
 
-function getOneBook(req, res) {
+getOneBook = (req, res) => {
 	return new Promise((resolve, reject) => {
 		resolve(
 			Book.getBookById(req.params._id, (err, book) => {
@@ -44,7 +44,7 @@ function getOneBook(req, res) {
 	});
 }
 
-function addNewBook(req, res) {
+addNewBook = (req, res) => {
 	return new Promise((resolve, reject) => {
 		const book = req.body;
 
@@ -59,7 +59,7 @@ function addNewBook(req, res) {
 	});
 }
 
-function editBookProps(req, res) {
+editBookProps = (req, res) => {
 	return new Promise((resolve, reject) => {
 		const id = req.params._id;
     	const book = req.body;
@@ -75,7 +75,7 @@ function editBookProps(req, res) {
 	});
 }
 
-function removeBookById(req, res) {
+removeBookById = (req, res) => {
 	return new Promise((resolve, reject) => {
 		const id = req.params._id;
 
