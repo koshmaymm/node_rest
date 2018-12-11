@@ -3,14 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-process.env.VAR_BOOKSTORE = 'mongodb://localhost:27017/bookstore';
-process.env.VAR_PORT = 3000;
+process.env.CONST_BOOKSTORE = 'mongodb://localhost:27017/bookstore';
+process.env.CONST_PORT = 3000;
 
 app.use(bodyParser.json());
 
 Book = require('./models/book');
 
-mongoose.connect(process.env.VAR_BOOKSTORE);
+mongoose.connect(process.env.CONST_BOOKSTORE);
 const db = mongoose.connection;
 
 function startRequest(req, res) {
@@ -101,4 +101,4 @@ app.post('/api/books', addNewBook );
 app.put('/api/books/:_id', editBookProps );
 app.delete('/api/books/:_id', removeBookById );
 
-app.listen(process.env.VAR_PORT);
+app.listen(process.env.CONST_PORT);
