@@ -53,10 +53,10 @@ addNewBook = (req, res) => {
 
 		resolve(
 			Book.addBook(book, (err, book) => {
-			if(err){
-				throw err;
-			}
-			res.json(book);
+				if(err){
+					throw err;
+				}
+				res.json(book);
 			})
 		);
 	});
